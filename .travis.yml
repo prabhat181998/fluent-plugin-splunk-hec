@@ -14,4 +14,5 @@ before_script:
 script:
   - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
   - make docker
-  - docker buildx build --platform linux/amd64,linux/arm64 -t abhishek138/team:latest -f ./docker/Dockerfile -t abhishek138/team:latest -f ./docker/Dockerfile --push .;
+  - docker build --no-cache --pull --build-arg VERSION=$(VERSION) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) -t splunk/fluentd-hec:$(VERSION) ./docker
+  #- docker buildx build --platform linux/amd64,linux/arm64 -t abhishek138/team:latest -f ./docker/Dockerfile -t abhishek138/team:latest -f ./docker/Dockerfile --push .;
