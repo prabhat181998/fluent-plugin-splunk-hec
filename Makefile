@@ -13,7 +13,8 @@ clean: clean_pkg clean_gems
 build: clean_pkg 
 	@bundle exec rake build
 
-install_buildx: mkdir -p ~/.docker/cli-plugins
+install_buildx: 
+		@mkdir -p ~/.docker/cli-plugins
 		@wget -O - https://github.com/docker/buildx/releases/download/v0.5.1/buildx-v0.5.1.linux-amd64 > ~/.docker/cli-plugins/docker-buildx
 		@chmod a+x ~/.docker/cli-plugins/docker-buildx
 		@docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
