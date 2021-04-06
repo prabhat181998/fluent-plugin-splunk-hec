@@ -14,6 +14,7 @@ before_script:
 script:
   - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
   - make docker
+  - install-deps build
   - cp pkg/fluent-plugin-*.gem docker
   - mkdir -p docker/licenses
   - cp -rp LICENSE docker/licenses/
