@@ -18,7 +18,7 @@ docker: install-deps build
 	@mkdir -p docker/licenses
 	@cp -rp LICENSE docker/licenses/
 	#@docker build --no-cache --pull --build-arg VERSION=$(VERSION) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) -t splunk/fluentd-hec:$(VERSION) ./docker
-	@docker buildx build --no-cache --pull --build-arg VERSION=$(VERSION) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) --platform linux/amd64,linux/arm64 -t abhishek138/fluentd-hec:latest ./docker -t abhishek138/fluentd-hec:latest ./docker --push .;
+	@docker buildx build --no-cache --pull --build-arg VERSION=$(VERSION) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) --platform linux/amd64,linux/arm64 -t abhishek138/fluentd-hec:latest ./docker  --push .;
         #@docker buildx build --platform linux/amd64,linux/arm64 -t abhishek138/fluentd-hec:latest ./docker -t abhishek138/fluentd-hec:latest ./docker --push .;
         
 
