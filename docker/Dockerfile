@@ -17,7 +17,7 @@ ENV FLUENT_USER fluent
 USER root
 
 COPY *.gem /tmp/
-COPY licenses /licenses
+#COPY licenses /licenses
 
 RUN dnf install -y jq
 
