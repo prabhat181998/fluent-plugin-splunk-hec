@@ -1,0 +1,38 @@
+name: Dev builds for ARM64
+
+on:
+  push:
+    branches:
+      - arm
+
+jobs:
+  build-arm64:
+    runs-on: ubuntu-20.04
+    env:
+     DOCKER_IMAGE: kubernetes-fluentd
+     DOCKER_USERNAME:  ${{ secrets.DOCKER_USERNAME }}
+     DOCKER_PASSWORD:  ${{ secrets.DOCKER_PASSWORD }}
+     DOCKER_TARGET_PLATFORM: linux/arm64
+    steps:
+     - name: Checkout the code
+       uses: actions/checkout@v1
+     - name: Set up Docker Buildx
+       uses: crazy-max/ghaction-docker-buildx@v1
+       with:
+         version: latest
+     - name: Prepare
+       if: success()
+       id: prepare
+       run: |
+         echo ::set-output name=docker_platform::${DOCKER_TARGET_PLATFORM}
+         echo ::set-output name=docker_image::${DOCKER_REGISTRY}/${DOCKER_IMAGE}
+         echo ::set-output name=version::${GITHUB_RUN_NUMBER}
+     - name: Docker Login
+       if: success()
+       run: |
+         docker login  --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+     - name: Run Buildx (push image)
+       if: success()
+       run: |
+         docker buildx build --platform linux/arm64 --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from public.ecr.aws/sumologic/kubernetes-fluentd:latest-builder-cache --target builder --tag odidev/kubernetes-fluentd:latest-builder-cache-arm64 -f Dockerfile.aarch64 --output type=image,push=true .
+         docker buildx build --platform linux/arm64 --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from public.ecr.aws/sumologic/kubernetes-fluentd:latest-builder-cache --cache-from public.ecr.aws/sumologic/kubernetes-fluentd:latest --target builder --tag odidev/kubernetes-fluentd:latest-arm64 -f Dockerfile.aarch64 --output type=image,push=true .
