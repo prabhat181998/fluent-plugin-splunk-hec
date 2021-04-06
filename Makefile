@@ -18,13 +18,12 @@ install_buildx:
 		@wget -O - https://github.com/docker/buildx/releases/download/v0.5.1/buildx-v0.5.1.linux-amd64 > ~/.docker/cli-plugins/docker-buildx
 		@chmod a+x ~/.docker/cli-plugins/docker-buildx
 		@docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
-		#@docker buildx create --use --name mybuilder	
+		@docker buildx create --use --name mybuilder	
 
 docker: install-deps build install_buildx
 	@cp pkg/fluent-plugin-*.gem docker
 	@mkdir -p docker/licenses
 	@cp -rp LICENSE docker/licenses/
-	@docker buildx create --use --name mybuilder
 	@docker buildx build --no-cache --pull --build-arg VERSION=$(VERSION) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) --platform linux/amd64,linux/arm64 -t abhishek138/fluentd-hec:latest ./docker  --push .;
         
         
