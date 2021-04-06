@@ -24,7 +24,7 @@ docker: install-deps build install_buildx
 	@cp pkg/fluent-plugin-*.gem docker
 	@mkdir -p docker/licenses
 	@cp -rp LICENSE docker/licenses/
-	@docker buildx build --platform linux/amd64,linux/arm64 --no-cache --pull --build-arg VERSION=$(VERSION) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) -t abhishek138/fluentd-hec:latest ./docker --push .;
+	@docker buildx build --platform linux/amd64,linux/arm64 --no-cache --pull --build-arg VERSION=$(VERSION) -t abhishek138/fluentd-hec:latest ./docker --push .;
         
         
 
