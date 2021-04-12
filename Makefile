@@ -18,9 +18,8 @@ docker: install-deps build
 	@cp pkg/fluent-plugin-*.gem docker
 	@mkdir -p docker/licenses
 	@cp -rp LICENSE docker/licenses/
-	@docker build --no-cache --pull --build-arg VERSION=$(VERSION) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) -t abhishek138/fluentd-hec:$(VERSION) ./docker
-	
-push: 
+	@docker build --no-cache --pull --build-arg VERSION=$(VERSION) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) -t abhishek138/fluentd-hec:$(VERSION) ./docker	
+push:
         if [ "${TRAVIS_CPU_ARCH}" == "arm64" ]; then
          @docker tag abhishek138/fluentd-hec:$(VERSION) abhishek138/fluentd-hec:$(VERSION)_arm64;
          @docker push abhishek138/fluentd-hec:$(VERSION)_arm64;
