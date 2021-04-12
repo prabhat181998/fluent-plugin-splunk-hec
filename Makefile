@@ -20,12 +20,12 @@ docker: install-deps build
 	@cp -rp LICENSE docker/licenses/
 	@docker build --no-cache --pull --build-arg VERSION=$(VERSION) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) -t fluentd-hec:$(VERSION) ./docker
 	
-push: if [ "${TRAVIS_CPU_ARCH}" == "arm64" ]; then
-         docker tag abhishek138/fluentd-hec:$(VERSION) abhishek138/fluentd-hec:latest_arm64;
-         docker push abhishek138/fluentd-hec:latest_arm64;
-      else
-         docker push abhishek138/fluentd-hec:$(VERSION);
-      fi	
+#push: if [ "${TRAVIS_CPU_ARCH}" == "arm64" ]; then
+#         docker tag abhishek138/fluentd-hec:$(VERSION) abhishek138/fluentd-hec:latest_arm64;
+ #        docker push abhishek138/fluentd-hec:latest_arm64;
+  #    else
+   #      docker push abhishek138/fluentd-hec:$(VERSION);
+    #  fi	
 	
         
 
