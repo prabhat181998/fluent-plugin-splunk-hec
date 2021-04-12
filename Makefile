@@ -18,7 +18,7 @@ docker: install-deps build
 	@cp pkg/fluent-plugin-*.gem docker
 	@mkdir -p docker/licenses
 	@cp -rp LICENSE docker/licenses/
-	@docker build --no-cache --pull --build-arg VERSION=$(VERSION) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) -t splunk/fluentd-hec:$(VERSION) ./docker
+	@docker build --no-cache --pull --build-arg VERSION=$(VERSION) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) -t splunk/fluentd-hec:$(VERSION) ./docker --push
         
 
 unit-test:
