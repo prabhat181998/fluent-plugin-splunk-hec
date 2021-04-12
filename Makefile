@@ -13,19 +13,12 @@ clean: clean_pkg clean_gems
 build: clean_pkg 
 	@bundle exec rake build
 
-install_buildx: 
-		@mkdir -p ~/.docker/cli-plugins
-		@wget -O - https://github.com/docker/buildx/releases/download/v0.5.1/buildx-v0.5.1.linux-amd64 > ~/.docker/cli-plugins/docker-buildx
-		@chmod a+x ~/.docker/cli-plugins/docker-buildx
-		@docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
-		@docker buildx create --use --name mybuilder	
 
-docker: install-deps build install_buildx
+docker: install-deps build
 	@cp pkg/fluent-plugin-*.gem docker
 	@mkdir -p docker/licenses
 	@cp -rp LICENSE docker/licenses/
-	@docker buildx build --platform linux/amd64,linux/arm64 --no-cache --pull --build-arg VERSION=$(VERSION) -t abhishek138/fluentd-hec:latest ./docker --push .;
-        
+	@docker build --no-cache --pull --build-arg VERSION=$(VERSION) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) -t splunk/fluentd-hec:$(VERSION) ./docker
         
 
 unit-test:
