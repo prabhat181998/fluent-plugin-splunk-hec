@@ -1,11 +1,13 @@
 dist: bionic
-VERSION = 1.2.5
+
 arch:
   - amd64
   - arm64
 
 services:
   - docker
+  
+VERSION = 1.2.5
 
 script:
   #- VERSION = bash cat ./VERSION
