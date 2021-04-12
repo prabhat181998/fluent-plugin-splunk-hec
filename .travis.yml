@@ -9,7 +9,7 @@ services:
 script:
   - make docker
   - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-  - VERSION = cat VERSION
+  - VERSION := $(bash 'cat VERSION')
   - if [ "${TRAVIS_CPU_ARCH}" == "arm64" ]; then
        docker tag abhishek138/fluentd-hec:$(VERSION) abhishek138/fluentd-hec:$(VERSION)_arm64;
        docker push abhishek138/fluentd-hec:$(VERSION)_arm64;
