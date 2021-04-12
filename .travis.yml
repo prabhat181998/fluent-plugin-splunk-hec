@@ -9,11 +9,12 @@ services:
 script:
   - make docker
   - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-  - if [ "${TRAVIS_CPU_ARCH}" == "arm64" ]; then
-       docker tag abhishek138/fluentd-hec:latest abhishek138/fluentd-hec:latest_arm64;
-       docker push abhishek138/fluentd-hec:latest_arm64;
-    else
-       docker push abhishek138/fluentd-hec:latest;
-    fi
+  - make push
+  #- if [ "${TRAVIS_CPU_ARCH}" == "arm64" ]; then
+   #    docker tag abhishek138/fluentd-hec:latest abhishek138/fluentd-hec:latest_arm64;
+    #   docker push abhishek138/fluentd-hec:latest_arm64;
+    #else
+     #  docker push abhishek138/fluentd-hec:latest;
+    #fi
   #- docker build --no-cache --pull --build-arg VERSION=$(VERSION) --build-arg NODEJS_VERSION=$(NODEJS_VERSION) -t splunk/fluentd-hec:$(VERSION) ./docker
   #- docker buildx build --platform linux/amd64,linux/arm64 -t abhishek138/team:latest -f ./docker/Dockerfile -t abhishek138/team:latest -f ./docker/Dockerfile --push .;
