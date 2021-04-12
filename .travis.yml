@@ -8,6 +8,7 @@ services:
   - docker
 
 script:
+  - VERSION = $(bash cat VERSION)
   - make docker
   - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
   - VERSION = $(bash 'cat VERSION')
