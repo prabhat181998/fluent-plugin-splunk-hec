@@ -1,4 +1,6 @@
 dist: focal
+arch:
+  - amd64
 
 services:
   - docker
